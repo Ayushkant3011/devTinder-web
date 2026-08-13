@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-      <h1>DevTinder-WEB</h1>
+      <h1 className="text-3xl font-bold underline">DevTinder-WEB</h1>
       
     </>
   )
