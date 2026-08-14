@@ -7,10 +7,13 @@ const Login = () => {
 
     const handleLogin = async () =>{
         try{
-            const response = axios.post("http://localhost:3011/login", {
+            const response = axios.post(
+                "http://localhost:3011/login", {
                 emailId,
                 password,
-            });
+                },
+                {withCredentials: true}
+            );
         }catch(err){
             console.log(err);
         }
