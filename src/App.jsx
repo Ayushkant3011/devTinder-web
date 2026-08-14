@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import NavBar from "./components/navbar"
+import Body from "./components/Body"
+import Login from "./components/login"
+import Profile from "./components/Profile"
 
 
 function App() {
@@ -8,15 +11,13 @@ function App() {
     <>
       <BrowserRouter basename="/">
         <Routes>
-          <Route path="/" element={<div>BasePage</div>}/>
-          <Route path="/login" element={<div>LoginPage</div>}/>
-          <Route path="/test" element={<div>TestPage</div>}/>
+          <Route path="/" element={<Body/>}> 
+            <Route path="/login" element= {<Login/>}/>
+            <Route path="/profile" element= {<Profile/>}/>
+          </Route>
         </Routes>
 
       </BrowserRouter>
-
-      <NavBar/>  
-      <h1 className="text-3xl font-bold underline">DevTinder-WEB</h1>
       
     </>
   )
