@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import NavBar from './navbar'
+import NavBar from './NavBar'
 import axios from "axios";
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
