@@ -2,11 +2,33 @@ import React from 'react'
 
 const Premium = () => {
   return (
-    <div>
-      <div className="flex w-full flex-col lg:flex-row">
-        <div className="card bg-base-300 rounded-box grid h-32 grow place-items-center">content</div>
-        <div className="divider lg:divider-horizontal">OR</div>
-        <div className="card bg-base-300 rounded-box grid h-32 grow place-items-center">content</div>
+    <div className='min-h-screen flex items-start justify-center px-6 py-16 bg-base-200'>
+      <div className="w-full max-w-5xl flex flex-col lg:flex-row items-stretch gap-8">
+        <div className="card w-full bg-base-100 rounded-2xl shadow-xl border border-base-300 p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+          <h1 className='text-3xl font-bold text-primary mb-5'>Silver Membership</h1>
+          <ul className="text-base-content/80 space-y-2 text-left mb-7">
+            <li> - Chat with other people</li>
+            <li> - 100 Connection Requests per day</li>
+            <li> - Blue Tick</li>
+            <li> - 3 Months</li>
+          </ul>
+
+          <button className="btn btn-primary btn-wide rounded-full shadow-md hover:shadow-lg">Buy Silver</button>
+        </div>
+
+        <div className="divider lg:divider-horizontaldivider lg:divider-horizontal font-semibold text-base-content/50">OR</div>
+
+        <div className="card w-full bg-base-100 rounded-2xl shadow-xl border border-warning/40 p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+          <h1 className='text-3xl font-bold text-warning mb-5'>Gold Membership</h1>
+          <ul className="text-base-content/80 space-y-2 text-left mb-7">
+            <li> - Chat with other people</li>
+            <li> - Infinite Connection Requests per day</li>
+            <li> - Gold Tick</li>
+            <li> - 6 Months</li>
+          </ul>
+
+          <button className="btn btn-warning btn-wide rounded-full shadow-md hover:shadow-lg">Buy Gold</button>
+        </div>
     </div>
     </div>
   )
