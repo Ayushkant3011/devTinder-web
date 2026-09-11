@@ -13,11 +13,31 @@ const Premium = () => {
         },
         {withCredentials : true}
       );
+
+      const { amount, keyId, currency, notes, orderId } = order.data;
+    
+      // It should open the Razorpay Dailog box
+      const options = {
+          key: keyId, 
+          amount, 
+          currency,
+          name: 'Dev-Tinder',
+          order_id: orderId,
+          prefill: {
+            name: notes.firstName + " " + notes.lastName,
+            email: notes.emailId,
+            contact: '9999999999'
+          },
+          theme: {
+            color: '#F37254'
+          },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     }
     catch(err){
       console.log(err);
     }
-    
   };
 
 
