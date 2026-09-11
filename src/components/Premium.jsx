@@ -1,6 +1,20 @@
+import axios from 'axios'
 import React from 'react'
+import { BASE_URL } from '../utils/constants'
 
 const Premium = () => {
+
+  const handleBuyClick = async (type) =>{
+    const order = await axios.post(
+      BASE_URL + "/payment/create", 
+      {
+        type,
+      },
+      {withCredentials : true}
+    );
+  };
+
+
   return (
     <div className='min-h-screen flex items-start justify-center px-6 py-16 bg-base-200'>
       <div className="w-full max-w-5xl flex flex-col lg:flex-row items-stretch gap-8">
@@ -13,7 +27,11 @@ const Premium = () => {
             <li> - 3 Months</li>
           </ul>
 
-          <button className="btn btn-primary btn-wide rounded-full shadow-md hover:shadow-lg">Buy Silver</button>
+          <button
+            onClick={() => handleBuyClick("silver")} 
+            className="btn btn-primary btn-wide rounded-full shadow-md hover:shadow-lg">
+            Buy Silver
+          </button>
         </div>
 
         <div className="divider lg:divider-horizontaldivider lg:divider-horizontal font-semibold text-base-content/50">OR</div>
@@ -27,7 +45,11 @@ const Premium = () => {
             <li> - 6 Months</li>
           </ul>
 
-          <button className="btn btn-warning btn-wide rounded-full shadow-md hover:shadow-lg">Buy Gold</button>
+          <button 
+            onClick={() => handleBuyClick("gold")} 
+            className="btn btn-warning btn-wide rounded-full shadow-md hover:shadow-lg">
+            Buy Gold
+          </button>
         </div>
     </div>
     </div>
