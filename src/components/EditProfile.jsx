@@ -4,6 +4,8 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import MyImages from './MyImages';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);
@@ -12,6 +14,8 @@ const EditProfile = ({ user }) => {
     const [age, setAge] = useState(user.age || "");
     const [gender, setGender] = useState(user.gender || "");
     const [about, setAbout] = useState(user.about || "");
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const [showToast, setShowtoast] = useState(false);
@@ -141,8 +145,15 @@ const EditProfile = ({ user }) => {
                         </div>
                     </div>
                     <p className='text-red-700'></p>
-                    <div className="card-actions justify-end">
-                    <button className="btn" onClick={saveProfile}>Save Profile</button>
+                    <div className="card-actions justify-end items-center mt-4">
+                         <button 
+                            className="btn btn-secondary" 
+                            onClick={() => navigate('/myimages')}
+                        >
+                            My Images
+                        </button>
+
+                        <button className="btn" onClick={saveProfile}>Save Profile</button>
                     </div>
                 </div>
             </div>

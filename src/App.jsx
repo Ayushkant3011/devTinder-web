@@ -8,6 +8,7 @@ import Feed from "./components/Feed"
 import Connections from "./components/Connections"
 import Requests from "./components/Requests"
 import Premium from "./components/Premium"
+import MyImages from "./components/MyImages"
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/connections" element= {<Connections/>}/>
             <Route path="/requests" element= {<Requests/>}/>
             <Route path="/premium" element= {<Premium/>}/>
+            <Route path="/myimages" element= {<MyImages/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
