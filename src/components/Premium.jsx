@@ -11,7 +11,7 @@ const Premium = () => {
   const verifyPremiumUser = async () =>{
     try{
       
-      const res = axios.get(
+      const res = await axios.get(
         BASE_URL + "/premium/verify" ,
         { withCredentials : true},
       );
