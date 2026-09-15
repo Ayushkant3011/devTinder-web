@@ -10,13 +10,13 @@ const Premium = () => {
 
   const verifyPremiumUser = async () =>{
     try{
-      console.log("Checking Premium Status!!!!");
       const res = await axios.get(
         BASE_URL + "/premium/verify" ,
         { withCredentials : true},
       );
       console.log("Premium response:", res.data);
-
+      console.log("isPremium value:", res.data.isPremium);
+      console.log("isPremium type:", typeof res.data.isPremium);
       if(res.data.isPremium) setIsUserPremium(true);
     }
     catch(err){
@@ -61,6 +61,7 @@ const Premium = () => {
       console.log(err);
     }
   };
+  console.log("Rendering Premium page. State:", isUserPremium);
 
 
   return isUserPremium ? (
