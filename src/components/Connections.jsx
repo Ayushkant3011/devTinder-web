@@ -6,6 +6,7 @@ import { addConnections } from "../utils/connectionSlice";
 
 import UserCard from "./UserCard";
 import ConnectionImagesModal from "./ConnectionImagesModal";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
 
@@ -132,9 +133,13 @@ const Connections = () => {
                 <p>
                   {about}
                 </p>
-
+                
               </div>
-
+              <Link to={"/chat/" + _id}>
+                <button className="btn btn-secondary"> 
+                    Chat 
+                </button>
+                </Link>
             </div>
 
           );
