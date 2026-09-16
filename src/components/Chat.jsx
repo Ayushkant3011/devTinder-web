@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { createSocketConnection } from '../utils/socket';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { BASE_URL } from '../utils/constants';
 
 const Chat = () => {
     const {targetUserId} = useParams();
@@ -10,6 +12,32 @@ const Chat = () => {
     const user = useSelector(store => store.user);
     const userId = user?._id;
 
+
+    const fetchChatMessage = async ()=>{
+        const chat = await axios.get(BASE_URL + "/chat/"+targetUserId,
+            {withCredentials: true}
+        );
+        
+        console.log(chat.data.messages);
+
+        const chatMessages = chat?.data?.messages.map(msg => {
+            const { senderId, text, createdAt } = msg;
+
+            return {
+                senderId: senderId?._id,
+                firstName: senderId?.firstName,
+                lastName: senderId?.lastName,
+                photoUrl: senderId?.photoUrl,
+                text,
+                createdAt,
+            };
+        });
+        setMessages(chatMessages);
+    };
+
+    useEffect(()=>{
+        fetchChatMessage();
+    }, []);
 
     useEffect(() =>{
         if(!userId) return;
@@ -20,9 +48,9 @@ const Chat = () => {
             targetUserId,
         });
 
-        socket.on("MessageReceived", ({ firstName, text, photoUrl}) =>{
+        socket.on("MessageReceived", ({ senderId, firstName, lastName, text, photoUrl, createdAt}) =>{
             console.log(firstName + " :  " + text);
-            setMessages((messages) =>[...messages, { firstName, text, photoUrl }]);
+            setMessages((messages) =>[...messages, { senderId, firstName, lastName, text, photoUrl, createdAt }]);
         });
 
         return () =>{
@@ -34,6 +62,7 @@ const Chat = () => {
         const socket = createSocketConnection();
         socket.emit("sendMessage", {
             firstName: user.firstName, 
+            lastName: user.lastName, 
             userId, 
             targetUserId, 
             text:newMessage,
@@ -51,7 +80,13 @@ const Chat = () => {
             <div className='flex-1 overflow-scroll p-5'>
                 {messages.map((msg, index) =>{
                     return (
-                        <div key={index} className="chat chat-start ">
+                        <div key={index} 
+                        className={
+                            "chat " + 
+                            (userId === msg.senderId
+                                ? "chat-end"
+                                : "chat-start")}
+                        >
                         <div className="chat-image avatar">
                             <div className="w-10 rounded-full">
                             <img
@@ -61,11 +96,18 @@ const Chat = () => {
                             </div>
                         </div>
                         <div className="chat-header">
-                            {msg.firstName}
-                            <time className="text-xs opacity-50">12:45</time>
+                            {`${msg.firstName} ${msg.lastName}`}
+                            <time className="text-xs opacity-50">
+                                {new Date(msg.createdAt).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </time>
                         </div>
-                        <div className="chat-bubble bg-primary">{msg.text}</div>
-                        <div className="chat-footer opacity-50">Delivered</div>
+                        <div className={
+                            "chat-bubble " + (userId === msg.senderId 
+                            ? "bg-secondary" : "bg-primary")}>{msg.text}</div>
+                        {/* <div className="chat-footer opacity-50">Delivered</div> */}
                         </div>
                     );
                 })}
